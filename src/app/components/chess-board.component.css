@@ -1579,13 +1579,22 @@
         z-index: 9999 !important;
     }
 
+    .action-btn::after, 
+    .action-trigger::after, 
+    .annotation-option::after {
+        display: none !important;
+    }
+
+    .action-btn:active::after, 
+    .action-trigger:active::after,
+    .annotation-option:active::after,
     .action-btn.force-tooltip::after, 
-    .action-trigger.force-tooltip::after, 
+    .action-trigger.force-tooltip::after,
     .annotation-option.force-tooltip::after {
+        display: flex !important;
         opacity: 1 !important;
         visibility: visible !important;
-        transform: translateX(-50%) !important;
-        display: flex !important;
+        z-index: 99999 !important;
     }
 
     .annotation-grid .annotation-option.force-tooltip::after {
@@ -1596,22 +1605,60 @@
         width: 28px;
         height: 28px;
     }
-}
 
-@media (hover: none) {
-    .action-btn::after, 
-    .action-trigger::after, 
-    .annotation-option::after {
-        display: none !important;
+    .action-btn *, .action-trigger * {
+        pointer-events: none !important;
     }
 }
 
 @media (hover: hover) {
-    .action-btn:hover::after, 
-    .action-trigger:hover::after, 
-    .annotation-option:hover::after {
+    [data-tooltip]:hover::after {
         opacity: 1;
         visibility: visible;
+    }
+}
+
+@media (hover: none) {
+    [data-tooltip]:hover::after {
+        display: none !important;
+    }
+
+    .action-btn.force-tooltip::after, 
+    .action-trigger.force-tooltip::after{
+        display: flex !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        z-index: 10000 !important;
+    }
+    
+    .annotation-option::after {
+        display: none !important;
+        position: absolute;
+        bottom: 110% !important; 
+        top: auto !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        z-index: 99999 !important;
+    }
+
+    .annotation-option.force-tooltip::after,
+    .annotation-option:active::after {
+        display: flex !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+
+    .annotation-option {
+        pointer-events: auto !important;
+        user-select: none;
+    }
+
+    .annotation-option.force-tooltip::after {
+        display: flex !important;
+        bottom: 110% !important;
+        top: auto !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
     }
 }
 

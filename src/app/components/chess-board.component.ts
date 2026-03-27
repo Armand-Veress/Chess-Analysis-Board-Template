@@ -74,6 +74,10 @@ export class ChessBoardComponent implements OnInit, AfterViewInit, AfterViewChec
     private lastTouchSquare: string | null = null;
     private longPressActive = false;
 
+    activeTooltipButtonId: string | null = null;
+    private tooltipShowTimer: any;
+    private tooltipHideTimer: any;
+
     private _showBoardSettings = false;
     
     get showBoardSettings(): boolean {
@@ -1820,36 +1824,26 @@ export class ChessBoardComponent implements OnInit, AfterViewInit, AfterViewChec
     private tooltipTimer: any;
     private activeTooltipElement: HTMLElement | null = null;
 
-    handleTooltipPress(event: any, text: string) {
-        const element = event.currentTarget as HTMLElement;
-        this.handleTooltipEnd(); 
-        this.longPressActive = false;
-        
-        this.tooltipTimer = setTimeout(() => {
-            this.longPressActive = true; 
-            element.classList.add('force-tooltip'); 
-            this.activeTooltipElement = element;
-            
-            if ('vibrate' in navigator) {
-                navigator.vibrate(50);
-            }
-            
-            setTimeout(() => { 
-                if (this.activeTooltipElement === element) {
-                    this.handleTooltipEnd(); 
-                }
-            }, 2500); 
-        }, 500); 
+    handleTooltipPress(event: any, buttonId: string): void {
+        clearTimeout(this.tooltipHideTimer);
+        clearTimeout(this.tooltipShowTimer);
+
+        this.tooltipShowTimer = setTimeout(() => {
+            this.activeTooltipButtonId = buttonId;
+            this.cdr.detectChanges(); 
+        }, 500);
     }
 
-    handleTooltipEnd() {
-        if (this.tooltipTimer) { 
-            clearTimeout(this.tooltipTimer); 
-            this.tooltipTimer = null; 
+    handleTooltipEnd(event: any = null): void {
+        clearTimeout(this.tooltipShowTimer);
+
+        if (this.activeTooltipButtonId) {
+            clearTimeout(this.tooltipHideTimer);
+            this.tooltipHideTimer = setTimeout(() => {
+                this.activeTooltipButtonId = null;
+                this.cdr.detectChanges();
+            }, 1000); 
         }
-        
-        document.querySelectorAll('.force-tooltip').forEach(el => el.classList.remove('force-tooltip'));
-        this.activeTooltipElement = null;
     }
 
     private setupMobileDrawing() {

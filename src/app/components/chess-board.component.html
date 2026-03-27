@@ -155,6 +155,10 @@
                         (mousedown)="handleTooltipPress($event, 'Toggle Engine Analysis')"
                         (mouseup)="handleTooltipEnd()"
                         (mouseleave)="handleTooltipEnd()"
+                        (touchstart)="handleTooltipPress($event, 'Toggle Engine Analysis')"
+                        (touchend)="handleTooltipEnd()"
+                        (touchmove)="handleTooltipEnd()"
+                        [class.force-tooltip]="activeTooltipButtonId === 'Toggle Engine Analysis'"
                         data-tooltip="Toggle Engine">
                     <span class="engine-icon">
                         <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
@@ -191,6 +195,10 @@
                     (mousedown)="handleTooltipPress($event, 'Save as JPG')"
                     (mouseup)="handleTooltipEnd()"
                     (mouseleave)="handleTooltipEnd()"
+                    (touchstart)="handleTooltipPress($event, 'Save as JPG')"
+                    (touchend)="handleTooltipEnd()"
+                    (touchmove)="handleTooltipEnd()"
+                    [class.force-tooltip]="activeTooltipButtonId === 'Save as JPG'"
                     data-tooltip="Save as JPG">
                 <span>
                     <svg viewBox="0 0 484.157 484.157" xmlns="http://www.w3.org/2000/svg">
@@ -228,6 +236,10 @@
                     (mousedown)="handleTooltipPress($event, 'Save as PGN')"
                     (mouseup)="handleTooltipEnd()"
                     (mouseleave)="handleTooltipEnd()"
+                    (touchstart)="handleTooltipPress($event, 'Save as PGN')"
+                    (touchend)="handleTooltipEnd()"
+                    (touchmove)="handleTooltipEnd()"
+                    [class.force-tooltip]="activeTooltipButtonId === 'Save as PGN'"
                     data-tooltip="Save as PGN">
                 <span>
                     <svg viewBox="0 0 550.801 550.801" xmlns="http://www.w3.org/2000/svg">
@@ -249,6 +261,10 @@
                     (mousedown)="handleTooltipPress($event, 'Copy PGN Analysis')"
                     (mouseup)="handleTooltipEnd()"
                     (mouseleave)="handleTooltipEnd()"
+                    (touchstart)="handleTooltipPress($event, 'Copy PGN Analysis')"
+                    (touchend)="handleTooltipEnd()"
+                    (touchmove)="handleTooltipEnd()"
+                    [class.force-tooltip]="activeTooltipButtonId === 'Copy PGN Analysis'"
                     data-tooltip="Copy PGN text">
                 <span *ngIf="!isPgnCopied" style="font-size: 1.1em; line-height: 1;">&#9112;</span>
                 <span *ngIf="isPgnCopied" class="success-check">&#10003;</span>
@@ -259,6 +275,10 @@
                     (mousedown)="handleTooltipPress($event, 'Copy FEN')"
                     (mouseup)="handleTooltipEnd()"
                     (mouseleave)="handleTooltipEnd()"
+                    (touchstart)="handleTooltipPress($event, 'Copy FEN')"
+                    (touchend)="handleTooltipEnd()"
+                    (touchmove)="handleTooltipEnd()"
+                    [class.force-tooltip]="activeTooltipButtonId === 'Copy FEN'"
                     data-tooltip="Copy FEN">
                 <span *ngIf="!isFenCopied">&#10697;</span>
                 <span *ngIf="isFenCopied" class="success-check">&#10003;</span>
@@ -269,6 +289,10 @@
                     (mousedown)="handleTooltipPress($event, 'Setup board')"
                     (mouseup)="handleTooltipEnd()"
                     (mouseleave)="handleTooltipEnd()"
+                    (touchstart)="handleTooltipPress($event, 'Setup board')"
+                    (touchend)="handleTooltipEnd()"
+                    (touchmove)="handleTooltipEnd()"
+                    [class.force-tooltip]="activeTooltipButtonId === 'Setup board'"
                     data-tooltip="Setup board">
                 <span>
                     <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
@@ -292,6 +316,10 @@
                     (mousedown)="handleTooltipPress($event, 'Import FEN / PGN')"
                     (mouseup)="handleTooltipEnd()"
                     (mouseleave)="handleTooltipEnd()"
+                    (touchstart)="handleTooltipPress($event, 'Import FEN / PGN')"
+                    (touchend)="handleTooltipEnd()"
+                    (touchmove)="handleTooltipEnd()"
+                    [class.force-tooltip]="activeTooltipButtonId === 'Import FEN / PGN'"
                     data-tooltip="Import FEN / PGN">
                 <span>
                     <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
@@ -305,15 +333,23 @@
                     (mousedown)="handleTooltipPress($event, 'Toggle Coordinates')"
                     (mouseup)="handleTooltipEnd()"
                     (mouseleave)="handleTooltipEnd()"
+                    (touchstart)="handleTooltipPress($event, 'Toggle Coordinates')"
+                    (touchend)="handleTooltipEnd()"
+                    (touchmove)="handleTooltipEnd()"
+                    [class.force-tooltip]="activeTooltipButtonId === 'Toggle Coordinates'"
                     data-tooltip="Toggle Coordinates">
                 <span><i>A<sup>1</sup></i></span>
             </button>
 
             <button #orientationBtn class="action-btn" 
                     (click)="toggleOrientation(); handleTooltipEnd(); $event.stopPropagation()" 
-                    (mousedown)="handleTooltipPress($event, 'Rotate Board')"
+                    (mousedown)="handleTooltipPress($event, 'Flip Board')"
                     (mouseup)="handleTooltipEnd()"
                     (mouseleave)="handleTooltipEnd()"
+                    (touchstart)="handleTooltipPress($event, 'Flip Board')"
+                    (touchend)="handleTooltipEnd()"
+                    (touchmove)="handleTooltipEnd()"
+                    [class.force-tooltip]="activeTooltipButtonId === 'Flip Board'"
                     data-tooltip="Flip Board">
                 <span>
                     <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
@@ -333,6 +369,10 @@
                 (mousedown)="handleTooltipPress($event, 'Settings Menu')"
                 (mouseup)="handleTooltipEnd()"
                 (mouseleave)="handleTooltipEnd()"
+                (touchstart)="handleTooltipPress($event, 'Settings Menu')"
+                (touchend)="handleTooltipEnd()"
+                (touchmove)="handleTooltipEnd()"
+                [class.force-tooltip]="activeTooltipButtonId === 'Settings Menu'"
                 data-tooltip="Settings Menu">
             <span [class.rotated]="showBoardSettings">&#8801;</span>
         </button>
@@ -545,14 +585,19 @@
 
     <div class="annotation-grid" *ngIf="contextMenu.showAnnotations">
         <div #annotationOption class="annotation-option" 
-             *ngFor="let ann of Annotation | keyvalue: keepOrder" 
-             [class.clear]="ann.value === Annotation.EMPTY"
-             (click)="setAnnotation(contextMenu.node!, ann.value); handleTooltipEnd()"
-             (mousedown)="handleTooltipPress($event, getAnnotationTooltip(ann.value))"
-             (mouseup)="handleTooltipEnd()"
-             (mouseleave)="handleTooltipEnd()"
-             [attr.data-tooltip]="getAnnotationTooltip(ann.value)">
-             {{ ann.value === Annotation.EMPTY ? '\u2205' : ann.value }}
+            *ngFor="let ann of Annotation | keyvalue: keepOrder" 
+            [class.clear]="ann.value === Annotation.EMPTY"
+            [class.force-tooltip]="activeTooltipButtonId === getAnnotationTooltip(ann.value)"
+            [attr.data-tooltip]="getAnnotationTooltip(ann.value)"
+            (touchstart)="handleTooltipPress($event, getAnnotationTooltip(ann.value))"
+            (touchend)="handleTooltipEnd()"
+            (touchmove)="handleTooltipEnd()"
+            (mousedown)="handleTooltipPress($event, getAnnotationTooltip(ann.value))"
+            (mouseup)="handleTooltipEnd()"
+            (mouseleave)="handleTooltipEnd()"
+            (click)="setAnnotation(contextMenu.node!, ann.value); $event.stopPropagation()">
+            {{ ann.value === Annotation.EMPTY ? '\u2205' : ann.value }}
         </div>
     </div>
+
 </div>
