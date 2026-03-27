@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, AfterViewInit, AfterViewChecked, ChangeDetectorRef, HostListener, OnInit } from '@angular/core';
+import { Component, ViewChild, ElementRef, AfterViewInit, AfterViewChecked, ChangeDetectorRef, HostListener, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Chessground } from 'chessground';
 import { Api } from 'chessground/api';
@@ -30,6 +30,13 @@ export class ChessBoardComponent implements OnInit, AfterViewInit, AfterViewChec
     @ViewChild('orientationBtn') orientationBtnElement!: ElementRef;
     @ViewChild('settingsBtn') settingsBtnElement!: ElementRef;
 
+    // --- API PUBLIC (Plug & Play) ---
+    @Input() startingFen: string = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
+    @Input() autoStartEngine: boolean = false;
+    
+    @Output() onMoveMade = new EventEmitter<{ orig: string, dest: string, fen: string }>();
+    // --------------------------------
+
     private cgApi?: Api;
     private game = new Chess();
     readonly Annotation = Annotation;
@@ -48,7 +55,6 @@ export class ChessBoardComponent implements OnInit, AfterViewInit, AfterViewChec
     importType: 'FEN' | 'PGN' = 'FEN';
     fenValue = '';
     pgnValue = '';
-    initialPositionFen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
     isSetupMode: boolean = false;
     selectedSetupPiece: string | null = null;
     isSetupFlipped: boolean = false;
@@ -112,7 +118,7 @@ export class ChessBoardComponent implements OnInit, AfterViewInit, AfterViewChec
             to: '' as any,
             piece: '' as any,
             color: Color.WHITE,
-            fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
+            fen: this.startingFen,
             san: 'START',
             children: [],
             parent: null,
@@ -160,7 +166,15 @@ export class ChessBoardComponent implements OnInit, AfterViewInit, AfterViewChec
     }
 
     ngOnInit(): void {
+        if (this.startingFen) {
+            this.game.load(this.startingFen);
+            this.updateTreeFromFen(this.startingFen); 
+        }
         this.moveTree.currentNode = this.moveTree.root;
+
+        if (this.autoStartEngine) {
+            this.toggleEngine();
+        }
 
         this.engineService.bestMove$.subscribe(move => {
             if (this.isEngineEnabled) {
@@ -338,6 +352,7 @@ export class ChessBoardComponent implements OnInit, AfterViewInit, AfterViewChec
             this.promotionData = null;
             this.drawingsVisible = true;
             this.syncBoard();
+            this.onMoveMade.emit({ orig, dest, fen: this.game.fen() });
         }
     }
 
@@ -861,7 +876,7 @@ export class ChessBoardComponent implements OnInit, AfterViewInit, AfterViewChec
     private getBoardOptions(fen?: string): any {
         return {
             coordinates: this.showCoordinates,
-            fen: fen || this.game.fen() || this.initialPositionFen,
+            fen: fen || this.game.fen() || this.startingFen,
             orientation: this.cgApi?.state.orientation || 'white',
             movable: {
                 free: false,
