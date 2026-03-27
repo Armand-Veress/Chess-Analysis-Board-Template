@@ -443,6 +443,8 @@ export class ChessBoardComponent implements OnInit, AfterViewInit, AfterViewChec
             xPos = rect.left - currentWidth - 8;
         }
 
+        xPos = Math.max(10, Math.min(xPos, window.innerWidth - currentWidth - 10));
+
         this.contextMenu = {
             visible: true,
             x: xPos,
