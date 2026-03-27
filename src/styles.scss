@@ -1,0 +1,28 @@
+@import 'chessground/assets/chessground.base.css';
+@import 'chessground/assets/chessground.cburnett.css'; 
+
+:root {
+    --bg-main: #2e2e2e;          
+    --bg-sidebar: #2e2e2e;    
+    --bg-border: #312e2b;
+    --bg-active-move: #403d39;   
+    --board-light: #fafad2;     
+    --board-dark: #c7c79f;       
+    --accent-orange: #ff8c00;    
+    --accent-green: #627b3d;    
+    --accent-blue: #4a6a8a;     
+    --glow-blue: #6ca6de;
+    --text-main: #d5d2d1;        
+    --text-muted: #8b8987;  
+    --ekg-glow: #6ca6de;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
