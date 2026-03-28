@@ -1,59 +1,76 @@
-# Frontend
+# Chess analysis board
+A web-responsive chess analysis board built with Angular 21, integrating Chessground for the UI and Stockfish 18 for engine evaluation. This project focuses on providing a functional interface for move-tree management, position setup, and PGN/FEN handling on both desktop and mobile devices. 
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.2.
+## Live Demo:
+https://armand-veress.github.io/Chess-Analysis-Board-Template/
 
-## Development server
+## Features:
+* Manage Analysis in a **move-tree structure**
+* **Set up custom position** for analysis
+* Supports **annotations and drawings(shapes)**
+* **Import** position from **FEN** or analysis from **PGN**
+* **Export** position as **.jpg diagram** or analysis as **PGN file**
+* **Copy to clipboard FEN or PGN** in a single click
+* **Toggle Engine** for computer analysis
 
-To start a local development server, run:
+## Technologies stack
+* **Framework:** Angular CLI (v21.2.2)
+* **Programming languages:** HTML5, CSS3, TypeScript
+* **Board UI:** [Chessground](https://github.com/lichess-org/chessground) (by Lichess)
+* **Move validation:** [chess.js](https://github.com/jhlywa/chess.js)
+* **Engine:** [Stockfish 18 WASM lite single thread version](https://github.com/nmrugg/stockfish.js/?tab=readme-ov-file)
 
-```bash
-ng serve
-```
+## How to run
+* **Option A (Run the full project):**
+  1. Clone the repository
+  ```
+  git clone https://github.com/Armand-Veress/Chess-Analysis-Board-Template.git
+  ```
+  2. Install dependencies
+  ```
+  npm install
+  ```
+  3. Run the development server
+  ```
+  ng serve
+  ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+* **Option B (Use as a standalone component):**
+  1. Copy files:
+     * (/src/app/components) chess-board.component.html, chess-board.component.css, chess-board.component.ts
+     * /src/app/services/engine.service.ts
+     * src/app/models
+     * (/public) stockfish-18-lite-single.js, stockfish-18-lite-single.wasm
+  2. Install dependencies:
+     ```
+     npm install chessground chess.js
+     ```
+  3. Import component
+     ```
+     import { ChessBoardComponent } from './chess-board/chess-board.component';
 
-## Code scaffolding
+     @Component({
+       standalone: true,
+       imports: [ChessBoardComponent],
+       template: `<app-chess-board></app-chess-board>`
+     })
+     ```
+  4. Basic usage (@Inputs and @Outputs)
+     ```
+     <app-chess-board 
+       [startingFen]="'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'"
+       [autoStartEngine]="false"
+       (onMoveMade)="testOutput($event)">
+     </app-chess-board>
+     ```
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## License & Attributions
+This project is licensed under the **GPL-3.0 License**.
 
-```bash
-ng generate component component-name
-```
+**Third-party Libraries & Assets:**
+* [Chessground](https://github.com/lichess-org/chessground) (GPL-3.0) by [Lichess](https://lichess.org/)
+* [Stockfish 18](https://github.com/nmrugg/stockfish.js/?tab=readme-ov-file) (GPL-3.0)
+* [chess.js](https://github.com/jhlywa/chess.js) (BSD-2-Clause)
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
 
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+  
